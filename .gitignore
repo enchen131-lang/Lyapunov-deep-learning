@@ -1,0 +1,30 @@
+# MATLAB
+*.asv
+*.autosave
+slprj/
+codegen/
+*.mex*
+*.log
+
+# Build files
+build/
+CMakeFiles/
+Debug/
+Release/
+
+# Temporary data
+temp/
+cache/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Images
+*.jpg
+*.jpeg
+*.JPG
+*.JPEG
+
+# File
+*.pdf
