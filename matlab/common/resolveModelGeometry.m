@@ -1,0 +1,19 @@
+function cfg = resolveModelGeometry(cfg)
+%CLIBVS_RESOLVEMODELGEOMETRY Separate controller and scene continuum lengths.
+% All lengths are in m. Only the two FixedTrajectory entries use this split.
+
+validateattributes(cfg.geometry.flexLen, {'numeric'}, ...
+    {'scalar', 'real', 'finite', 'positive'});
+if ~isfield(cfg, 'model') || ~isfield(cfg.model, 'flexLen') || ...
+        isempty(cfg.model.flexLen)
+    cfg.model.flexLen = cfg.geometry.flexLen;
+end
+validateattributes(cfg.model.flexLen, {'numeric'}, ...
+    {'scalar', 'real', 'finite', 'positive'});
+validateattributes(cfg.geometry.diskLengths, {'numeric'}, ...
+    {'vector', 'numel', 9, 'real', 'finite', 'positive', ...
+    '<=', cfg.geometry.flexLen});
+assert(all(diff(cfg.geometry.diskLengths(:)) > 0), ...
+    'Scene diskLengths must increase from base to tip.');
+
+end

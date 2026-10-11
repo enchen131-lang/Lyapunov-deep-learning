@@ -1,0 +1,150 @@
+updateState_function=function(inInts,inFloats,inStrings,inBuffer)
+
+    if #inFloats >= 127 then
+
+        jointHandles={}
+        for i=1,7,1 do
+            jointHandles[i]=sim.getObjectHandle('Panda_joint'..i)
+            sim.setJointTargetPosition(jointHandles[i],inFloats[i])
+        end
+
+        M = sim.getObjectMatrix(camera_handle, -1)
+        for i=1,11,1 do
+
+            j = 12*i - 4
+
+            M[1] = inFloats[j]
+            M[5] = inFloats[j + 1]
+            M[9] = inFloats[j + 2]
+
+            M[2] = inFloats[j + 3]  
+            M[6] = inFloats[j + 4]
+            M[10] = inFloats[j + 5] 
+     
+            M[3] = inFloats[j + 6]  
+            M[7] = inFloats[j + 7]
+            M[11] = inFloats[j + 8] 
+
+            M[4] = inFloats[j + 9]  
+            M[8] = inFloats[j + 10]
+            M[12] = inFloats[j + 11]
+
+            if (i == 1) then
+                sim.setObjectMatrix(disk2_handle, -1, M)
+            end
+
+            if (i == 2) then
+                sim.setObjectMatrix(disk3_handle, -1, M)
+            end
+
+            if (i == 3) then
+                sim.setObjectMatrix(disk4_handle, -1, M)
+            end
+
+            if (i == 4) then
+                sim.setObjectMatrix(disk5_handle, -1, M)
+            end
+
+            if (i == 5) then
+                sim.setObjectMatrix(disk6_handle, -1, M)
+            end
+
+            if (i == 6) then
+                sim.setObjectMatrix(disk7_handle, -1, M)
+            end
+
+            if (i == 7) then
+                sim.setObjectMatrix(disk8_handle, -1, M)
+            end
+
+            if (i == 8) then
+                sim.setObjectMatrix(disk9_handle, -1, M)
+            end
+
+            if (i == 9) then
+                sim.setObjectMatrix(disk10_handle, -1, M)
+            end            
+            if (i == 10) then
+                sim.setObjectMatrix(camera_handle, -1, M)
+            end
+
+        end
+
+        return {},{},{},''
+    end
+end
+
+-- DO NOT WRITE CODE OUTSIDE OF THE if-then-end SECTIONS BELOW!! (unless the code is a function definition)
+
+if (sim_call_type==sim.syscb_init) then
+
+    -- Put some initialization code here
+
+    -- Make sure you read the section on "Accessing general-type objects programmatically"
+    -- For instance, if you wish to retrieve the handle of a scene object, use following instruction:
+    --
+    -- handle=sim.getObjectHandle('sceneObjectName')
+    -- 
+    -- Above instruction retrieves the handle of 'sceneObjectName' if this script's name has no '#' in it
+    --
+    -- If this script's name contains a '#' (e.g. 'someName#4'), then above instruction retrieves the handle of object 'sceneObjectName#4'
+    -- This mechanism of handle retrieval is very convenient, since you don't need to adjust any code when a model is duplicated!
+    -- So if the script's name (or rather the name of the object associated with this script) is:
+    --
+    -- 'someName', then the handle of 'sceneObjectName' is retrieved
+    -- 'someName#0', then the handle of 'sceneObjectName#0' is retrieved
+    -- 'someName#1', then the handle of 'sceneObjectName#1' is retrieved
+    -- ...
+    --
+    -- If you always want to retrieve the same object's handle, no matter what, specify its full name, including a '#':
+    --
+    -- handle=sim.getObjectHandle('sceneObjectName#') always retrieves the handle of object 'sceneObjectName' 
+    -- handle=sim.getObjectHandle('sceneObjectName#0') always retrieves the handle of object 'sceneObjectName#0' 
+    -- handle=sim.getObjectHandle('sceneObjectName#1') always retrieves the handle of object 'sceneObjectName#1'
+    -- ...
+    --
+    -- Refer also to simGetCollisionhandle, sim.getDistanceHandle, sim.getIkGroupHandle, etc.
+    --
+    -- Following 2 instructions might also be useful: sim.getNameSuffix and sim.setNameSuffix
+    
+    disk2_handle = sim.getObjectHandle("Joint_disk02")
+    disk3_handle = sim.getObjectHandle("Joint_disk03")
+    disk4_handle = sim.getObjectHandle("Joint_disk04")
+    disk5_handle = sim.getObjectHandle("Joint_disk05")
+    disk6_handle = sim.getObjectHandle("Joint_disk06")
+    disk7_handle = sim.getObjectHandle("Joint_disk07")
+    disk8_handle = sim.getObjectHandle("Joint_disk08")
+    disk9_handle = sim.getObjectHandle("Joint_disk09")
+    disk10_handle = sim.getObjectHandle("Joint_disk10")
+    
+    camera_handle = sim.getObjectHandle("Camera")
+    simRemoteApi.start(19999)
+
+end
+
+
+if (sim_call_type==sim.syscb_actuation) then
+
+    -- Put your main ACTUATION code here
+
+    -- For example:
+    --
+    -- local position=sim.getObjectPosition(handle,-1)
+    -- position[1]=position[1]+0.001
+    -- sim.setObjectPosition(handle,-1,position)
+
+end
+
+
+if (sim_call_type==sim.syscb_sensing) then
+
+    -- Put your main SENSING code here
+
+end
+
+
+if (sim_call_type==sim.syscb_cleanup) then
+
+    -- Put some restoration code here
+
+end
